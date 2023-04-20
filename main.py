@@ -1,38 +1,25 @@
 """
-This is a hello world add-on for DocumentCloud.
-
-It demonstrates how to write a add-on which can be activated from the
-DocumentCloud add-on system and run using Github Actions.  It receives data
-from DocumentCloud via the request dispatch and writes data back to
-DocumentCloud using the standard API
+This is an Add-On that allows you to change the visibility of all notes queried or selected.
 """
 
-from documentcloud.addon import AddOn
+from documentcloud.addon import AddOn, SoftTimeOutAddOn
 
-
-class HelloWorld(AddOn):
-    """An example Add-On for DocumentCloud."""
+class ChangeNoteVisibility(SoftTimeOutAddOn):
+    """Bulk changes visibility of notes on documents selected."""
 
     def main(self):
-        """The main add-on functionality goes here."""
-        # fetch your add-on specific data
-        name = self.data.get("name", "world")
-
-        self.set_message("Hello World start!")
-
-        # add a hello note to the first page of each selected document
+        """For all of the documents selected it will change the visibility of the notes 
+           on these documents to the one specified."""
+        # fetch the access_level specified
+        access_level = self.data["access_level"]
+        accepted_values = ['private', 'public', 'organization']
+        if access_level not in accepted_values:
+            self.set_message("You set an invalid access level- must be private, public, or organization")
+            sys.exit(1)
         for document in self.get_documents():
-            # get_documents will iterate through all documents efficiently,
-            # either selected or by query, dependeing on which is passed in
-            document.annotations.create(f"Hello {name}!", 0)
-
-        with open("hello.txt", "w+") as file_:
-            file_.write("Hello world!")
-            self.upload_file(file_)
-
-        self.set_message("Hello World end!")
-        self.send_mail("Hello World!", "We finished!")
-
+            for note in document.notes:
+                note.access = access_level
+                note.save()
 
 if __name__ == "__main__":
-    HelloWorld().main()
+    ChangeNoteVisibility().main()
