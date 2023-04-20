@@ -1,7 +1,7 @@
 """
 This is an Add-On that allows you to change the visibility of all notes queried or selected.
 """
-
+import sys
 from documentcloud.addon import AddOn, SoftTimeOutAddOn
 
 class ChangeNoteVisibility(SoftTimeOutAddOn):
