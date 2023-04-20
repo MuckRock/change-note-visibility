@@ -12,3 +12,4 @@ properties:
     default: public
 required: 
   - access_level
+version: 2
