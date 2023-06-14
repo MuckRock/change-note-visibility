@@ -12,4 +12,6 @@ properties:
     default: public
 required: 
   - access_level
+categories:
+  - bulk
 version: 2
