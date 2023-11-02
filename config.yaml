@@ -1,5 +1,6 @@
 title: Change Note Visibility
-description: This Add-On will allow you to change the visibility of all notes on documents in the query/selection. Only works on documents you own. 
+description: This Add-On will allow you to change the visibility of all notes on documents in the query/selection. Only works on documents you own.
+instructions: ''
 type: object
 documents:
   - query
