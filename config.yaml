@@ -9,8 +9,11 @@ properties:
   access_level:
     title: Access level
     type: string
-    description: Public, private, or organization.
-    default: public
+    default: private
+    enum:
+      - private
+      - organization
+      - public
 required: 
   - access_level
 categories:
