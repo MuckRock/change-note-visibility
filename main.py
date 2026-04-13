@@ -1,6 +1,7 @@
 """
 This is an Add-On that allows you to change the visibility of all notes queried or selected.
 """
+import time
 import sys
 from documentcloud.addon import SoftTimeOutAddOn
 
@@ -11,6 +12,7 @@ class ChangeNoteVisibility(SoftTimeOutAddOn):
     def main(self):
         """For all of the documents selected it will change the visibility of the notes
         on these documents to the one specified."""
+        self.client.session.headers.update({'User-Agent': 'Change Note Visibility Add-On'})
         # fetch the access_level specified
         access_level = self.data["access_level"]
         accepted_values = ["private", "public", "organization"]
@@ -21,6 +23,7 @@ class ChangeNoteVisibility(SoftTimeOutAddOn):
             for note in document.notes:
                 note.access = access_level
                 note.save()
+            time.sleep(5)
 
 
 if __name__ == "__main__":
