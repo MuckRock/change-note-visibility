@@ -23,7 +23,7 @@ class ChangeNoteVisibility(SoftTimeOutAddOn):
             for note in document.notes:
                 note.access = access_level
                 note.save()
-            time.sleep(5)
+                time.sleep(1)
 
 
 if __name__ == "__main__":
